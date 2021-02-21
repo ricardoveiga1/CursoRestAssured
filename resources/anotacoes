@@ -1,0 +1,146 @@
+ @Test
+    public void deveBuscarTodosOsProdutos() {
+        JsonPath path = given()
+                .header("Accept", "application/json")
+                .get("/todos")
+                .andReturn()
+                .jsonPath();
+
+        Produto produto = path.getObject("produto", Produto.class);
+        Produto esperado = new Produto("Cama Grande", TipoProduto.CAMA, 600, "Branca com listras", "Uma cama de 3m");
+
+        Assert.assertEquals(esperado, produto);
+
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    package Test;
+
+
+import org.json.simple.JSONObject;
+import org.junit.Assert;
+import org.junit.Test;
+
+import io.restassured.RestAssured;
+import io.restassured.http.Method;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
+public class ProdutoResourceTestAssured{
+
+    @Test
+    public void deveBuscarTodosOsProdutos() {
+
+        // Specify base URI
+        RestAssured.baseURI = "http://localhost:8080/ProjetoJersey/api/produto";
+
+        // Request Object
+        RequestSpecification httpRequest = RestAssured.given();
+
+        // Response Object
+        Response response = httpRequest.request(Method.GET, "/todos");
+
+        // Print response in console window
+        String responseBody = response.getBody().asString();
+        System.out.println("Response Body is: " + responseBody);
+
+        // Status code validation
+        int statusCode = response.getStatusCode();
+        System.out.println("Status code is: " + statusCode);
+        Assert.assertEquals(statusCode, 200);
+
+        // Status line verification
+        String statusLine = response.getStatusLine();
+        System.out.println("Status line is: " + statusLine);
+        Assert.assertEquals(statusLine, "HTTP/1.1 200 OK");
+
+    }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    public void deveInserirUmProduto() {
+
+        // Specify base URI
+        RestAssured.baseURI = "http://localhost:8080/ProjetoJersey/api/produto";
+
+        // Request Object
+        RequestSpecification httpRequest = RestAssured.given();
+
+        //Request playload sending along with post request
+        JSONObject requestParams = new JSONObject();
+
+        requestParams.put("nome", "MacBook PRO");
+        requestParams.put("tipoProduto", "INFORMATICA");
+        requestParams.put("valor", 26000.00);
+        requestParams.put("cor", "Cinza Espacial");
+        requestParams.put("especificacoes", "Top de linha");
+
+        httpRequest.header("Content-type", "application/json");
+
+        httpRequest.body(requestParams.toJSONString());
+
+        // Response Object
+        Response response = httpRequest.request(Method.POST, "/");
+
+        // Print response in console window
+        String responseBody = response.getBody().asString();
+        System.out.println("Response Body is: " + responseBody);
+
+        // Status code validation
+        int statusCode = response.getStatusCode();
+        System.out.println("Status code is: " + statusCode);
+        Assert.assertEquals(statusCode, 201);
+
+        // Success code validation
+        String successCode = response.jsonPath().get("SuccessCode");
+        Assert.assertEquals(successCode, "OPERATION_SUCCESS");
+
+    }
+
+}
+
+
+
+brew install ant - instalar o ant para rodar aplicação local
+xcode-select --install  - atualizar o xcode
+
+para logar basta no given por log().all()
+
+por padrão  restassured busca na https:localhost:8080, caso não passe url
+
+o Junit não garante ordem dos testes, logo para configurar elementos estáticos, devemos criar um método void de setup before class, para ser executado antes dos testes
+
+
+
+
+
+Cenários da aplicação seu Barriga
+
+Nao deve acessar API sem token - rota de contas
+Deve incluir uma conta com sucesso - POST/signin  - devemos logar e pegar o token e depois incluir a conta - POST nas contas
+Deve alterar uma conta com suceso - PUT/contas:id
+Não deve incluir uma conta com nove repetido - POST/contas
+Deve inserir movimentacoes com sucesso - POST/transacoes - são vários campos, ver no vídeo
+Deve validar campos obrigatórios na movimentacao
+Não deve cadastrar movimentacão futura - POST/transacoes
+Não deve remover conta com movimentacao - DELETE/contas/:id
+Deve calcular saldo das contas - GET/saldo
+Deve remover movimentacao - DELETE/transacao/:id
+
+
+
+
+
+
+
+
+
+
+
+

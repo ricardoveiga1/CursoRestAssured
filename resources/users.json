@@ -1,0 +1,111 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "array",
+    "readOnly": false,
+    "writeOnly": false,
+    "uniqueItems": false,
+    "minItems": 0,
+    "minContains": 1,
+    "title": "The Root Schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "additionalItems": true,
+    "items": {
+        "$id": "#/items",
+        "type": "object",
+        "readOnly": false,
+        "writeOnly": false,
+        "minProperties": 0,
+        "title": "The Items Schema",
+        "description": "An explanation about the purpose of this instance.",
+        "default": {},
+        "examples": [
+            {
+                "name": "João da Silva",
+                "salary": 1234.5678,
+                "id": 1.0,
+                "age": 30.0
+            },
+            {
+                "name": "Maria Joaquina",
+                "endereco": {
+                    "numero": 0.0,
+                    "rua": "Rua dos bobos"
+                },
+                "salary": 2500.0,
+                "id": 2.0,
+                "age": 25.0
+            },
+            {
+                "name": "Ana Júlia",
+                "id": 3.0,
+                "age": 20.0,
+                "filhos": [
+                    {
+                        "name": "Zezinho"
+                    },
+                    {
+                        "name": "Luizinho"
+                    }
+                ]
+            }
+        ],
+        "additionalProperties": true,
+        "required": [
+            "id",
+            "name",
+            "age"
+        ],
+        "properties": {
+            "id": {
+                "$id": "#/items/properties/id",
+                "type": "integer",
+                "readOnly": false,
+                "writeOnly": false,
+                "title": "The Id Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                    1
+                ]
+            },
+            "name": {
+                "$id": "#/items/properties/name",
+                "type": "string",
+                "readOnly": false,
+                "writeOnly": false,
+                "minLength": 0,
+                "title": "The Name Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": "",
+                "examples": [
+                    "João da Silva"
+                ]
+            },
+            "age": {
+                "$id": "#/items/properties/age",
+                "type": "integer",
+                "readOnly": false,
+                "writeOnly": false,
+                "title": "The Age Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                    30
+                ]
+            },
+            "salary": {
+                "$id": "#/items/properties/salary",
+                "type": "number",
+                "readOnly": false,
+                "writeOnly": false,
+                "title": "The Salary Schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": 0,
+                "examples": [
+                    1234.5678
+                ]
+            }
+        }
+    }
+}
