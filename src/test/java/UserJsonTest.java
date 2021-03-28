@@ -151,15 +151,15 @@ public class UserJsonTest {
 	
 	@Test
 	public void devoUnirJsonPathComJAVA() {
-		ArrayList<String> names = 
+		ArrayList<String> names =    //lista de string
 			given()  //serve para por a autorizacao, basic auth
 			.when()
 				.get("https://restapi.wcaquino.me/users")
 			.then()
 				.statusCode(200)
-				.extract().path("name.findAll{it.startsWith('Maria')}")
+				.extract().path("name.findAll{it.startsWith('Maria')}") //fazendo uma query que inicia com maria
 			;
-		Assert.assertEquals(1, names.size());
+		Assert.assertEquals(1, names.size()); //size desta lista
 		Assert.assertTrue(names.get(0).equalsIgnoreCase("mArIa Joaquina"));
 		Assert.assertEquals(names.get(0).toUpperCase(), "maria joaquina".toUpperCase());
 	}
